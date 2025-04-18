@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.example.org/JDeveloper/mywork/OnlineBatch25/Cal"
+            targetNamespace="http://www.example.org/JDeveloper/mywork/OnlineBatch25/Cal" elementFormDefault="qualified">
+  <xsd:element name="CalcRequest">
+    <xsd:annotation>
+      <xsd:documentation>A sample element</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="CalcA" type="xsd:integer"/>
+        <xsd:element name="CalB" type="xsd:integer" minOccurs="0"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="CalcResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Addresponse" type="xsd:integer" minOccurs="0"/>
+        <xsd:element name="SubResponse" type="xsd:integer" minOccurs="0"/>
+        <xsd:element name="ErrorDetails" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

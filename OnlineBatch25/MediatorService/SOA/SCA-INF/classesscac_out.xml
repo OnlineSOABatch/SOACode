@@ -1,0 +1,23 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line/>
+      <col/>
+      <file>Mediators/PartnerIntegration.mplan</file>
+      <name>Mediators/PartnerIntegration.mplan</name>
+      <fix/>
+      <msg>Assigning source "{http://www.example.org/OnlineBatch25/MediatorService/SOA/Schemas/calc/1.0}Addresult" and target "{http://www.example.org}Addresult" of different QName which may generate non-valid xml as per the xsd in case of non-leaf node. If required verify manually</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line/>
+      <col/>
+      <file>Mediators/PartnerIntegration.mplan</file>
+      <name>Mediators/PartnerIntegration.mplan</name>
+      <fix/>
+      <msg>Assigning source "{http://www.example.org/OnlineBatch25/MediatorService/SOA/Schemas/calc/1.0}Subresult" and target "{http://www.example.org}Subresult" of different QName which may generate non-valid xml as per the xsd in case of non-leaf node. If required verify manually</msg>
+   </Fault>
+</Faults>

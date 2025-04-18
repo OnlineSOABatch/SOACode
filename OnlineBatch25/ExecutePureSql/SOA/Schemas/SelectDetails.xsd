@@ -1,0 +1,22 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectDetails" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/SelectDetails" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SelectDetailsInput" type="SelectDetailsInput"/>
+   <xs:complexType name="SelectDetailsInput">
+      <xs:sequence>
+         <xs:element name="ID" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="SelectDetailsOutputCollection" type="SelectDetailsOutputCollection"/>
+   <xs:complexType name="SelectDetailsOutputCollection">
+      <xs:sequence>
+         <xs:element name="SelectDetailsOutput" type="SelectDetailsOutput" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SelectDetailsOutput">
+      <xs:sequence>
+         <xs:element name="NAME" type="xs:string" nillable="true"/>
+         <xs:element name="CITY" type="xs:string" nillable="true"/>
+         <xs:element name="CONTACTNUMBER" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

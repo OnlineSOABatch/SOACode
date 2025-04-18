@@ -1,0 +1,33 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='SubService']</loc>
+      <line>53</line>
+      <col>89</col>
+      <file>C:\JDeveloper\mywork\OnlineBatch25\CalculaterService\SOA\composite.xml</file>
+      <name>C:\JDeveloper\mywork\OnlineBatch25\CalculaterService\SOA\composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "SubService":"{http://xmlns.oracle.com/OnlineBatch25/Sub/Sub}Sub_pt" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='AddService']</loc>
+      <line>49</line>
+      <col>89</col>
+      <file>C:\JDeveloper\mywork\OnlineBatch25\CalculaterService\SOA\composite.xml</file>
+      <name>C:\JDeveloper\mywork\OnlineBatch25\CalculaterService\SOA\composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "AddService":"{http://xmlns.oracle.com/OnlineBatch25/Add/Add}Add_pt" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='ErrorHandlerService']</loc>
+      <line>58</line>
+      <col>96</col>
+      <file>C:\JDeveloper\mywork\OnlineBatch25\CalculaterService\SOA\composite.xml</file>
+      <name>C:\JDeveloper\mywork\OnlineBatch25\CalculaterService\SOA\composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "ErrorHandlerService":"{http://www.example.org/system/clientname/wsdl/ErrorHandlingMessage/1.0}ErrorHandlingMessage_pt" in WSDL Manager</msg>
+   </Fault>
+</Faults>

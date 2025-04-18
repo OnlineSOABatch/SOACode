@@ -1,0 +1,16 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="ErrorHandlingMessage"
+     targetNamespace="http://www.example.org/system/clientname/wsdl/ErrorHandlingMessage/1.0"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:tns="http://www.example.org/system/clientname/wsdl/ErrorHandlingMessage/1.0"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="ErrorHandlerService">
+        <plnk:role name="ErrorHandlingMessage_ptt" portType="tns:ErrorHandlingMessage_ptt"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://www.example.org/system/clientname/wsdl/ErrorHandlingMessage/1.0"
+         location="oramds:/apps/Common/ErrorHandler/WSDL/ErrorHandlingMessage.wsdl"/>
+</wsdl:definitions>

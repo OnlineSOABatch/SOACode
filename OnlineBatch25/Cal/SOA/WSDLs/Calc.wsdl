@@ -1,0 +1,36 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="Calc"
+     targetNamespace="http://xmlns.oracle.com/OnlineBatch25/Cal/Calc"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/OnlineBatch25/Cal/Calc"
+     xmlns:ns1="http://www.example.org/JDeveloper/mywork/OnlineBatch25/Cal"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:ns2="http://schemas.oracle.com/bpel/extension"
+     xmlns:ns3="http://www.example.org/system/clientname/xsd/ErrorInfo/1.0"
+    >
+    <plnk:partnerLinkType name="Calc">
+        <plnk:role name="CalcProvider" portType="client:Calc"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://schemas.oracle.com/bpel/extension" location="RuntimeFault.wsdl"/>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://www.example.org/JDeveloper/mywork/OnlineBatch25/Cal" schemaLocation="../Schemas/CalcInput.xsd"/>
+        </schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.example.org/system/clientname/xsd/ErrorInfo/1.0" schemaLocation="oramds:/apps/Common/ErrorHandler/XSD/ErrorInfo.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="CalcRequestMessage">
+        <wsdl:part name="payload" element="ns1:CalcRequest"/>
+    </wsdl:message>
+    <wsdl:message name="CalcResponseMessage">
+        <wsdl:part name="payload" element="ns1:CalcResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="Calc">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:CalcRequestMessage"/>
+            <wsdl:output message="client:CalcResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

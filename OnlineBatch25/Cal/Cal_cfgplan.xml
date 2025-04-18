@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAConfigPlan xmlns:jca="http://platform.integration.oracle/blocks/adapter/fw/metadata" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:edl="http://schemas.oracle.com/events/edl" xmlns="http://schemas.oracle.com/soa/configplan">
+   <composite name="Calc">
+      <!--Add search and replace rules for the import section of a composite
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>-->
+      <import>
+         <searchReplace>
+            <search/>
+            <replace/>
+         </searchReplace>
+      </import>
+      <service name="calc_client_ep">
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://xmlns.oracle.com/OnlineBatch25/Cal/Calc#wsdl.endpoint(calc_client_ep/Calc_pt)</replace>
+            </attribute>
+         </binding>
+      </service>
+      <property name="productVersion">
+         <replace>12.2.1.4.0.190828</replace>
+      </property>
+      <property name="compositeID">
+         <replace>ba14776a-80c9-47a6-aa63-e44c51f5b07b</replace>
+      </property>
+      <property name="oracle.composite.faultPolicyFile">
+         <replace>fault-bindings.xml</replace>
+      </property>
+      <property name="oracle.composite.faultBindingFile">
+         <replace>fault-bindings.xml</replace>
+      </property>
+      <!--Add search and replace rules for the component properties
+	For components and service/reference bindings, you can add policy references.
+	Example:
+	<component name="*">
+		<wsp:PolicyReference orawsp:category="management" orawsp:status="enabled" URI="oracle/log_policy"/>
+	</component>-->
+      <component name="Calc">
+         <property name="bpel.config.transaction">
+            <replace>required</replace>
+         </property>
+         <property name="bpel.preference.environmentID">
+            <replace>PTEDEV</replace>
+         </property>
+      </component>
+      <reference name="Add">
+         <!--Add search and replace rules for the binding properties-->
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://xmlns.oracle.com/OnlineBatch25/Add/Add#wsdl.endpoint(add_client_ep/Add_pt)</replace>
+            </attribute>
+            <attribute name="location">
+               <replace>http://localhost:7002/soa-infra/services/default/Add/add_client_ep?WSDL</replace>
+            </attribute>
+            <property name="weblogic.wsee.wsat.transaction.flowOption">
+               <replace>WSDLDriven</replace>
+            </property>
+         </binding>
+      </reference>
+      <reference name="Sub">
+         <!--Add search and replace rules for the binding properties-->
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://xmlns.oracle.com/OnlineBatch25/Sub/Sub#wsdl.endpoint(sub_client_ep/Sub_pt)</replace>
+            </attribute>
+            <attribute name="location">
+               <replace>http://localhost:7002/soa-infra/services/default/Sub/sub_client_ep?WSDL</replace>
+            </attribute>
+            <property name="weblogic.wsee.wsat.transaction.flowOption">
+               <replace>WSDLDriven</replace>
+            </property>
+         </binding>
+      </reference>
+      <reference name="CallErrorHandlerService">
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://www.example.org/system/clientname/wsdl/ErrorHandlingMessage/1.0#wsdl.endpoint(commonerrorhandlerservice_client_ep/ErrorHandlingMessage_pt)</replace>
+            </attribute>
+            <attribute name="location">
+               <replace>http://localhost:7002/soa-infra/services/default/CommonErrorHandler/commonerrorhandlerservice_client_ep?WSDL</replace>
+            </attribute>
+         </binding>
+      </reference>
+   </composite>
+   <!--To configure monitor.config: 
+	<property name="enabled"><replace>true</replace></property>
+	<property name="dataObjectsFolder"><searchReplace><search>mydev</search><replace>myproduction</replace></searchReplace></property>
+	
+	sample properties to configure for adapter: 
+	<jca:property name="QueueName"><replace>medmq1</replace></jca:property>
+	
+	To add search and replace rules for wsdls, xsd and jca files
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>
+	-->
+   <wsdlAndSchema name="Schemas/CalcInput.xsd|WSDLs/Calc.wsdl|WSDLs/ErrorHandlingMessageWrapper.wsdl|WSDLs/RuntimeFault.wsdl">
+      <searchReplace>
+         <search/>
+         <replace/>
+      </searchReplace>
+   </wsdlAndSchema>
+</SOAConfigPlan>

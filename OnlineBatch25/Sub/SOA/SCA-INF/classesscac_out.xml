@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='AssignSubInput']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='from']</loc>
+      <line>74</line>
+      <col/>
+      <file>BPEL/Sub.bpel</file>
+      <name>BPEL/Sub.bpel</name>
+      <fix>Check expression syntax on &lt;bpel:from>.</fix>
+      <msg>The expression "$inputVariable.payload/client:SubA - $inputVaria ..." has invalid syntax - Unexpected ','</msg>
+   </Fault>
+</Faults>

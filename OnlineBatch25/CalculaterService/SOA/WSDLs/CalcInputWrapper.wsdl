@@ -1,0 +1,21 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="CalcInput"
+     targetNamespace="http://www.example.org/system/clientname/wsdl/CalcInput/1.0"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:tns="http://www.example.org/system/clientname/wsdl/CalcInput/1.0"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:ns1="http://www.example.org/system/clientname/xsd/ErrorInfo/1.0"
+    >
+    <plnk:partnerLinkType name="CalculaterServiceBPS">
+        <plnk:role name="CalcInput_ptt" portType="tns:CalcInput_ptt"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://www.example.org/system/clientname/wsdl/CalcInput/1.0" location="oramds:/apps/CalcService/WSDL/CalcInput.wsdl"/>
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.example.org/system/clientname/xsd/ErrorInfo/1.0" schemaLocation="oramds:/apps/Common/ErrorHandler/XSD/ErrorInfo.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+</wsdl:definitions>

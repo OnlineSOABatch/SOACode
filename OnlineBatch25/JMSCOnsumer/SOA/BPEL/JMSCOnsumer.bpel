@@ -1,0 +1,76 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer
+
+  Created: Tue Apr 01 07:43:30 IST 2025
+  Author:  MY PC
+  Type: BPEL 2.0 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="JMSCOnsumer"
+               targetNamespace="http://xmlns.oracle.com/OnlineBatch25/JMSCOnsumer/JMSCOnsumer"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/OnlineBatch25/JMSCOnsumer/JMSCOnsumer"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/OnlineBatch25/JMSCOnsumer/ConsumeMessage"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/file/OnlineBatch25/JMSCOnsumer/WriteFiles"
+         xmlns:ns3="http://xmlns.oracle.com/OnlineBatch25/JMSPublish/JMSPublishMessage"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:ess="http://xmlns.oracle.com/scheduler" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
+
+  <!--
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC
+     Set of activities coordinating the flow of messages across the
+     services integrated within this business process
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/OnlineBatch25/JMSCOnsumer/ConsumeMessage"
+          location="../WSDLs/ConsumeMessage.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" ui:processWSDL="true"/>
+  <partnerLinks>
+    <partnerLink name="ConsumeMessage" partnerLinkType="ns1:Consume_Message_plt" myRole="Consume_Message_role"/>
+    <partnerLink name="WriteFiles" partnerLinkType="ns2:Write_plt" partnerRole="Write_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="receiveConsumeMessage_InputVariable" messageType="ns1:Consume_Message_msg"/>
+    <variable name="InvokeWriteFiles_Write_InputVariable" messageType="ns2:Write_msg"/>
+  </variables>
+  <sequence name="main">
+    <receive name="ReceiveConsumeMessage" createInstance="yes" partnerLink="ConsumeMessage"
+             portType="ns1:Consume_Message_ptt" operation="Consume_Message"
+             variable="receiveConsumeMessage_InputVariable"/>
+    <assign name="Assign1">
+      <copy>
+        <from>$receiveConsumeMessage_InputVariable.body/ns3:OrderID</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeWriteFiles_Write_InputVariable.body/ns3:OrderID</to>
+      </copy>
+      <copy>
+        <from>$receiveConsumeMessage_InputVariable.body/ns3:Item</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeWriteFiles_Write_InputVariable.body/ns3:Item</to>
+      </copy>
+      <copy>
+        <from>$receiveConsumeMessage_InputVariable.body/ns3:Price</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeWriteFiles_Write_InputVariable.body/ns3:Price</to>
+      </copy>
+      <copy>
+        <from>dvm:lookupValue('oramds:/apps/JMSConsumer/DVM/Location.dvm','Flipkart',$receiveConsumeMessage_InputVariable.body/ns3:Location,'FedEx','NA')</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeWriteFiles_Write_InputVariable.body/ns3:Location</to>
+      </copy>
+    </assign>
+    <invoke name="InvokeWriteFiles" partnerLink="WriteFiles" portType="ns2:Write_ptt"
+            operation="Write" inputVariable="InvokeWriteFiles_Write_InputVariable" bpelx:invokeAsDetail="no"/>
+  </sequence>
+</process>

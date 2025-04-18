@@ -1,0 +1,28 @@
+<wsdl:definitions
+     name="InsertIntoCustmer"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/OnlineBatch25/DBAdapter/InsertIntoCustmer"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/OnlineBatch25/DBAdapter/InsertIntoCustmer"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertIntoCustmer"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="InsertIntoCustmer_plt" >
+    <plt:role name="InsertIntoCustmer_role" >
+      <plt:portType name="tns:InsertIntoCustmer_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertIntoCustmer" schemaLocation="../Schemas/InsertIntoCustmer_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="CustomerCollection_msg">
+        <wsdl:part name="CustomerCollection" element="top:CustomerCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="InsertIntoCustmer_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:CustomerCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

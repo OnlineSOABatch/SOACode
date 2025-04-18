@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.example.org/mywork/OnlineBatch25/CalcOrderTotal/SOA/Schemas"
+            targetNamespace="http://www.example.org/mywork/OnlineBatch25/CalcOrderTotal/SOA/Schemas"
+            elementFormDefault="qualified">
+  <xsd:element name="OrderTotalRequest">
+    <xsd:annotation>
+      <xsd:documentation>A sample element</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="OrderID" type="xsd:string"/>
+        <xsd:element name="OrderLines" type="OrderTotalType" maxOccurs="10"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="OrderTotalResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="OrderID" type="xsd:string"/>
+        <xsd:element name="GrandTotal" type="xsd:float"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="OrderTotalType">
+    <xsd:sequence>
+      <xsd:element name="LineNo" type="xsd:int"/>
+      <xsd:element name="Item" type="xsd:string"/>
+      <xsd:element name="Price" type="xsd:float"/>
+      <xsd:element name="Quantity" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

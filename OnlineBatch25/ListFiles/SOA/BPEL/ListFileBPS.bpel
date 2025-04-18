@@ -1,0 +1,72 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Sat Mar 29 19:30:38 IST 2025
+  Author:  MY PC
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="ListFileBPS"
+               targetNamespace="http://xmlns.oracle.com/OnlineBatch25/ListFiles/ListFileBPS"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/OnlineBatch25/ListFiles/ListFileBPS"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/file/OnlineBatch25/ListFiles/ListFileService">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/OnlineBatch25/ListFiles/ListFileBPS" location="../WSDLs/ListFileBPS.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="listfilebps_client" partnerLinkType="client:ListFileBPS" myRole="ListFileBPSProvider"/>
+    <partnerLink name="ListFileService" partnerLinkType="ns1:FileListing_plt" partnerRole="FileListing_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:ListFileBPSRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:ListFileBPSResponseMessage"/>
+    <variable name="invokeListFileService_InputVariable" messageType="ns1:Empty_msg"/>
+    <variable name="invokeListFileService_OutputVariable" messageType="ns1:FileListing_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in ListFileBPS.wsdl) -->
+    <receive name="receiveInput" partnerLink="listfilebps_client" portType="client:ListFileBPS" operation="process" variable="inputVariable" createInstance="yes"/>
+    <invoke name="InvokeListFileService" partnerLink="ListFileService"
+            portType="ns1:FileListing_ptt" operation="FileListing" inputVariable="invokeListFileService_InputVariable"
+            outputVariable="invokeListFileService_OutputVariable" bpelx:invokeAsDetail="no"/>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="listfilebps_client" portType="client:ListFileBPS" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

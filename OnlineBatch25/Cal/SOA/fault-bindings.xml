@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faultPolicyBindings version="2.0.1" xmlns="http://schemas.oracle.com/bpel/faultpolicy">
+
+    <composite faultPolicy="calcFaultPolicy"/>
+
+    <component faultPolicy="calcFaultPolicy">
+        <name>Calc</name>
+    </component>
+
+    <reference faultPolicy="calcFaultPolicy">
+        <name>Add</name>
+    </reference>
+
+    <reference faultPolicy="calcFaultPolicy">
+        <name>Sub</name>
+    </reference>
+
+    <service faultPolicy="calcFaultPolicy">
+        <name>calc_client_ep</name>
+    </service>
+</faultPolicyBindings>

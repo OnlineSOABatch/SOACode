@@ -1,0 +1,101 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Sun Mar 30 19:57:35 IST 2025
+  Author:  MY PC
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="SelectCustomerDetails"
+               targetNamespace="http://xmlns.oracle.com/OnlineBatch25/SelectDataBase/SelectCustomerDetails"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/OnlineBatch25/SelectDataBase/SelectCustomerDetails"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/OnlineBatch25/SelectDataBase/SelectCustomerDetail"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectCustomerDetail"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/OnlineBatch25/SelectDataBase/SelectCustomerDetails" location="../WSDLs/SelectCustomerDetails.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="selectcustomerdetails_client" partnerLinkType="client:SelectCustomerDetails" myRole="SelectCustomerDetailsProvider"/>
+    <partnerLink name="SelectCustomerDetail" partnerLinkType="ns1:SelectCustomerDetail_plt"
+                 partnerRole="SelectCustomerDetail_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:SelectCustomerDetailsRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:SelectCustomerDetailsResponseMessage"/>
+    <variable name="invokeSelectCustomerDetail_InputVariable"
+              messageType="ns1:SelectCustomerDetailSelect_inputParameters"/>
+    <variable name="invokeSelectCustomerDetail_OutputVariable" messageType="ns1:CustomerCollection_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in SelectCustomerDetails.wsdl) -->
+    <receive name="receiveInput" partnerLink="selectcustomerdetails_client" portType="client:SelectCustomerDetails" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign1">
+      <copy>
+        <from>$inputVariable.payload/client:Id</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeSelectCustomerDetail_InputVariable.SelectCustomerDetailSelect_inputParameters/ns2:Id</to>
+      </copy>
+    </assign>
+    <invoke name="InvokeSelectCustomerDetail" partnerLink="SelectCustomerDetail"
+            portType="ns1:SelectCustomerDetail_ptt" operation="SelectCustomerDetailSelect"
+            inputVariable="invokeSelectCustomerDetail_InputVariable"
+            outputVariable="invokeSelectCustomerDetail_OutputVariable" bpelx:invokeAsDetail="no"/>
+    <assign name="AssignResponse">
+      <copy>
+        <from>$invokeSelectCustomerDetail_OutputVariable.CustomerCollection/ns2:Customer/ns2:id</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/client:Id</to>
+      </copy>
+      <copy>
+        <from>$invokeSelectCustomerDetail_OutputVariable.CustomerCollection/ns2:Customer/ns2:name</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/client:Name</to>
+      </copy>
+      <copy>
+        <from>$invokeSelectCustomerDetail_OutputVariable.CustomerCollection/ns2:Customer/ns2:city</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/client:City</to>
+      </copy>
+      <copy>
+        <from>$invokeSelectCustomerDetail_OutputVariable.CustomerCollection/ns2:Customer/ns2:contactnumber</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/client:ContactNo</to>
+      </copy>
+    </assign>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="selectcustomerdetails_client" portType="client:SelectCustomerDetails" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

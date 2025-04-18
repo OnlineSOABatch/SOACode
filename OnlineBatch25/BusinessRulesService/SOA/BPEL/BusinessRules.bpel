@@ -1,0 +1,143 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Apr 01 21:01:36 IST 2025
+  Author:  MY PC
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="BusinessRules"
+               targetNamespace="http://xmlns.oracle.com/OnlineBatch25/BusinessRulesService/BusinessRules"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/OnlineBatch25/BusinessRulesService/BusinessRules"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://www.example.org"
+         xmlns:ns2="http://xmlns.oracle.com/LoanProcessingRules/LoanProcessingRules_DecisionService_1"
+         xmlns:ns3="http://xmlns.oracle.com/bpel"
+         xmlns:ns4="http://www.example.org/mywork/OnlineBatch25/BusinessRulesService/SOA/Schemas/1.0"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:ess="http://xmlns.oracle.com/scheduler" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
+  <import namespace="http://www.example.org" location="../Schemas/Rules.xsd"
+          importType="http://www.w3.org/2001/XMLSchema"/>
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/OnlineBatch25/BusinessRulesService/BusinessRules" location="../WSDLs/BusinessRules.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="businessrules_client" partnerLinkType="client:BusinessRules" myRole="BusinessRulesProvider"/>
+    <partnerLink name="LoanProcessingRules.LoanProcessingRules_DecisionService_1" partnerRole="IDecisionService_Role"
+                 partnerLinkType="ns2:IDecisionService_PLT"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:BusinessRulesRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:BusinessRulesResponseMessage"/>
+    <variable name="RulesInput" element="ns1:RulesInput"/>
+    <variable name="RulesOutput" element="ns1:RulesOutput"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in BusinessRules.wsdl) -->
+    <receive name="receiveInput" partnerLink="businessrules_client" portType="client:BusinessRules" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="AssignInput">
+      <copy>
+        <from>$inputVariable.payload/ns1:CustomerType</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$RulesInput/ns0:CustomerType</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns1:Employeer</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$RulesInput/ns0:Employeer</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns1:Salary</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$RulesInput/ns0:Salary</to>
+      </copy>
+    </assign>
+    <scope name="Rule1">
+      <bpelx:annotation>
+        <bpelx:pattern patternName="bpelx:decide"></bpelx:pattern>
+      </bpelx:annotation>
+      <variables>
+        <variable name="dsIn" messageType="ns2:callFunctionStatelessMessage"/>
+        <variable name="dsOut" messageType="ns2:callFunctionStatelessDecisionMessage"/>
+      </variables>
+      <sequence name="Sequence1">
+        <assign name="Facts_To_Rule_Service">
+          <copy>
+            <from variable="RulesInput"/>
+            <to variable="dsIn" part="payload"><query>ns2:parameterList/ns1:RulesInput</query></to>
+          </copy>
+        </assign>
+        <assign name="BPEL_Header">
+          <copy>
+            <from>"LoanProcessingRules_DecisionService_1"</from>
+            <to variable="dsIn" part="payload"><query>@name</query></to>
+          </copy>
+        </assign>
+        <invoke name="Invoke" partnerLink="LoanProcessingRules.LoanProcessingRules_DecisionService_1"
+                portType="ns2:IDecisionService" operation="callFunctionStateless" inputVariable="dsIn"
+                outputVariable="dsOut"/>
+        <assign name="Rule_Service_To_Facts">
+          <copy>
+            <from variable="dsOut" part="payload"><query>ns2:resultList/ns1:RulesOutput</query></from>
+            <to variable="RulesOutput"/>
+          </copy>
+        </assign>
+      </sequence>
+    </scope>
+    <assign name="Assign1">
+      <copy>
+        <from>$RulesOutput/ns0:RI</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns1:RI</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns1:LoanID</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns1:LoanID</to>
+      </copy>
+      <copy>
+        <from>"Suceess"</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns1:Status</to>
+      </copy>
+    </assign>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="businessrules_client" portType="client:BusinessRules" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

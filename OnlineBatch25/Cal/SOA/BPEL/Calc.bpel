@@ -1,0 +1,244 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Mar 12 08:29:54 IST 2025
+  Author:  MY PC
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="Calc"
+               targetNamespace="http://xmlns.oracle.com/OnlineBatch25/Cal/Calc"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/OnlineBatch25/Cal/Calc"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/OnlineBatch25/Sub/Sub"
+         xmlns:ns2="http://xmlns.oracle.com/OnlineBatch25/Add/Add"
+         xmlns:ns3="http://www.example.org/JDeveloper/mywork/OnlineBatch25/Cal"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:ess="http://xmlns.oracle.com/scheduler" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns4="http://www.example.org/system/clientname/wsdl/ErrorHandlingMessage/1.0"
+         xmlns:ns5="http://www.example.org/system/clientname/ErrorHandlingMessage/1.0"
+         xmlns:ns6="http://www.example.org/system/clientname/xsd/ErrorInfo/1.0"
+         xmlns:ns7="http://www.example.org/calService/Error">
+  <import namespace="http://www.example.org/system/clientname/xsd/ErrorInfo/1.0"
+          location="oramds:/apps/Common/ErrorHandler/XSD/ErrorInfo.xsd" importType="http://www.w3.org/2001/XMLSchema"/>
+  <import namespace="http://schemas.oracle.com/bpel/extension" location="../WSDLs/RuntimeFault.wsdl"
+          importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/OnlineBatch25/Cal/Calc" location="../WSDLs/Calc.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="calc_client" partnerLinkType="client:Calc" myRole="CalcProvider"/>
+    <partnerLink name="Sub" partnerLinkType="ns1:Sub" partnerRole="SubProvider"/>
+    <partnerLink name="Add" partnerLinkType="ns2:Add" partnerRole="AddProvider"/>
+    <partnerLink name="CallErrorHandlerService" partnerLinkType="ns4:CallErrorHandlerService"
+                 partnerRole="ErrorHandlingMessage_ptt"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:CalcRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:CalcResponseMessage"/>
+    <variable name="invoke_Add_InputVariable" messageType="ns2:AddRequestMessage"/>
+    <variable name="invoke_Add_OutputVariable" messageType="ns2:AddResponseMessage"/>
+    <variable name="invokeSub_InputVariable" messageType="ns1:SubRequestMessage"/>
+    <variable name="invokeSub_OutputVariable" messageType="ns1:SubResponseMessage"/>
+    <variable name="invokeCallErrorHandlerService_InputVariable" messageType="ns4:requestMessage"/>
+    <variable name="faltDetails" element="ns6:ErrorDetails"/>
+  </variables>
+  <faultHandlers>
+    <catchAll>
+      <sequence name="Sequence5">
+        <assign name="AssignErrorDetails">
+          <copy>
+            <from>ora:getFlowId()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:Id</to>
+          </copy>
+          <copy>
+            <from>ora:getCompositeName()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:FaultingServiceName</to>
+          </copy>
+          <copy>
+            <from>ora:getPreference('environmentID')</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:environmentID</to>
+          </copy>
+          <copy>
+            <from>'Source'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:sourceSystem</to>
+          </copy>
+          <copy>
+            <from>'Target'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:targetSystem</to>
+          </copy>
+          <copy>
+            <from>$faltDetails/ns6:ErrorCode</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:errorCode</to>
+          </copy>
+          <copy>
+            <from>$faltDetails/ns6:ErrorText</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:errorText</to>
+          </copy>
+          <copy>
+            <from>$faltDetails/ns6:StackTrace</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:stactTrace</to>
+          </copy>
+          <copy>
+            <from>xp20:current-dateTime()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:createDateTime</to>
+          </copy>
+          <copy>
+            <from>xp20:current-dateTime()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:insertDateTime</to>
+          </copy>
+          <copy>
+            <from>xp20:current-dateTime()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:updateDateTime</to>
+          </copy>
+          <copy>
+            <from>'requestpayload'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:requestPayload</to>
+          </copy>
+          <copy>
+            <from>'responsepayload'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeCallErrorHandlerService_InputVariable.requestPayload/ns5:reaponsePayload</to>
+          </copy>
+        </assign>
+        <invoke name="InvokeCallErrorHandlerService" partnerLink="CallErrorHandlerService"
+                portType="ns4:ErrorHandlingMessage_ptt" operation="ErrorHandlingMessage"
+                inputVariable="invokeCallErrorHandlerService_InputVariable" bpelx:invokeAsDetail="no"/>
+      </sequence>
+    </catchAll>
+  </faultHandlers>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in Calc.wsdl) -->
+    <receive name="receiveInput" partnerLink="calc_client" portType="client:Calc" operation="process" variable="inputVariable" createInstance="yes"/>
+    <validate name="Validate1" variables="inputVariable"/>
+    <flow name="Flow1">
+      <sequence name="Sequence">
+        <scope name="Scope1">
+          <faultHandlers>
+            <catchAll>
+              <sequence name="Sequence6">
+                <assign name="AssignErrorDetails">
+                  <copy>
+                    <from>'Cal_TE_100'</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$faltDetails/ns6:ErrorCode</to>
+                  </copy>
+                  <copy>
+                    <from>ora:getFaultAsString()</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$faltDetails/ns6:ErrorText</to>
+                  </copy>
+                  <copy>
+                    <from>'Y'</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$faltDetails/ns6:ErrorFlag</to>
+                  </copy>
+                  <copy>
+                    <from>ora:getFaultAsString()</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$faltDetails/ns6:StackTrace</to>
+                  </copy>
+                </assign>
+                <throw name="Throw" faultName="ns7:CatchAll" faultVariable="faltDetails"/>
+              </sequence>
+            </catchAll>
+          </faultHandlers>
+          <sequence>
+            <assign name="AssignAddinput">
+              <copy>
+                <from>$inputVariable.payload/ns3:CalcA</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invoke_Add_InputVariable.payload/ns2:A</to>
+              </copy>
+              <copy>
+                <from>$inputVariable.payload/ns3:CalB</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invoke_Add_InputVariable.payload/ns2:B</to>
+              </copy>
+            </assign>
+            <invoke name="InvokeAdd" partnerLink="Add" portType="ns2:Add" operation="process"
+                    inputVariable="invoke_Add_InputVariable" outputVariable="invoke_Add_OutputVariable"
+                    bpelx:invokeAsDetail="no"/>
+            <assign name="AssignResponse">
+              <copy>
+                <from>$invoke_Add_OutputVariable.payload/ns2:Addresult</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns3:Addresponse</to>
+              </copy>
+            </assign>
+          </sequence>
+        </scope>
+      </sequence>
+      <sequence name="Sequence4">
+        <sequence name="Sequence3">
+          <sequence>
+            <scope name="Scope2">
+              <faultHandlers>
+                <catch faultName="bpelx:remoteFault">
+                  <throw name="Throw2" faultName="bpelx:remoteFault"/>
+                </catch>
+              </faultHandlers>
+              <sequence>
+                <assign name="AssignSubInput">
+                  <copy>
+                    <from>$inputVariable.payload/ns3:CalcA</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeSub_InputVariable.payload/ns1:SubA</to>
+                  </copy>
+                  <copy>
+                    <from>$inputVariable.payload/ns3:CalB</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeSub_InputVariable.payload/ns1:SubB</to>
+                  </copy>
+                </assign>
+                <invoke name="InvokeSub" partnerLink="Sub" portType="ns1:Sub" operation="process"
+                        inputVariable="invokeSub_InputVariable" outputVariable="invokeSub_OutputVariable"
+                        bpelx:invokeAsDetail="no"/>
+                <assign name="AssignResponse" xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+                  <copy>
+                    <from>$invokeSub_OutputVariable.payload/ns1:SubResult</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns3:SubResponse</to>
+                  </copy>
+                </assign>
+              </sequence>
+            </scope>
+          </sequence>
+        </sequence>
+      </sequence>
+    </flow>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="calc_client" portType="client:Calc" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

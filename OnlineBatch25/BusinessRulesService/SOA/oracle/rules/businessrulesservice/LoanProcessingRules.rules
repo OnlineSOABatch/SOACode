@@ -1,0 +1,770 @@
+<?xml version="1.0"?>
+<RuleDictionary id="G}7207f6fb:1960ab34c6f:-7ffe" xmlns="http://xmlns.oracle.com/rules/dictionary">
+  <Name>LoanProcessingRules</Name>
+  <Alias>LoanProcessingRules</Alias>
+  <Package>businessrulesservice</Package>
+  <Version>12.1.1.0.0</Version>
+  <DataModel id="L}1">
+    <CreationUpdateNumber>2</CreationUpdateNumber>
+    <QualifierPattern>{member} of {fact}</QualifierPattern>
+    <JaxbFactType id="J}org.example.RulesInput">
+      <Name>org.example.RulesInput</Name>
+      <Alias>RulesInput</Alias>
+      <Visible>true</Visible>
+      <CreationUpdateNumber>3</CreationUpdateNumber>
+      <Property id="J}org.example.RulesInput.{customerType}">
+        <Name>customerType</Name>
+        <Alias>customerType</Alias>
+        <Visible>true</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <IDofType>J}java.lang.String</IDofType>
+        <ListContentID>B}nil</ListContentID>
+        <Type>String</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+        <Writable>true</Writable>
+        <Readable>true</Readable>
+        <Local>true</Local>
+        <Expression id="L}26">
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <PrimaryKey>false</PrimaryKey>
+      </Property>
+      <Property id="J}org.example.RulesInput.{employeer}">
+        <Name>employeer</Name>
+        <Alias>employeer</Alias>
+        <Visible>true</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <IDofType>J}java.lang.String</IDofType>
+        <ListContentID>B}nil</ListContentID>
+        <Type>String</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+        <Writable>true</Writable>
+        <Readable>true</Readable>
+        <Local>true</Local>
+        <Expression id="L}27">
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <PrimaryKey>false</PrimaryKey>
+      </Property>
+      <Property id="J}org.example.RulesInput.{salary}">
+        <Name>salary</Name>
+        <Alias>salary</Alias>
+        <Visible>true</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <IDofType>J}int</IDofType>
+        <ListContentID>B}nil</ListContentID>
+        <Type>int</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+        <Writable>true</Writable>
+        <Readable>true</Readable>
+        <Local>true</Local>
+        <Expression id="L}28">
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <PrimaryKey>false</PrimaryKey>
+      </Property>
+      <Method id="J}public void org.example.RulesInput.setCustomerType(java.lang.String)">
+        <Name>setCustomerType</Name>
+        <Alias>setCustomerType</Alias>
+        <Visible>false</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <OverloadedParameter id="G}7207f6fb:1960ab34c6f:-7bef">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <IDsOfType>J}java.lang.String</IDsOfType>
+        </OverloadedParameter>
+        <Modifiers id="L}15">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+        <Static>false</Static>
+        <IDofType>J}void</IDofType>
+        <Type>void</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+      </Method>
+      <Method id="J}public void org.example.RulesInput.setSalary(int)">
+        <Name>setSalary</Name>
+        <Alias>setSalary</Alias>
+        <Visible>false</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <OverloadedParameter id="G}7207f6fb:1960ab34c6f:-7bee">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <IDsOfType>J}int</IDsOfType>
+        </OverloadedParameter>
+        <Modifiers id="L}17">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+        <Static>false</Static>
+        <IDofType>J}void</IDofType>
+        <Type>void</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+      </Method>
+      <Method id="J}public void org.example.RulesInput.setEmployeer(java.lang.String)">
+        <Name>setEmployeer</Name>
+        <Alias>setEmployeer</Alias>
+        <Visible>false</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <OverloadedParameter id="G}7207f6fb:1960ab34c6f:-7bed">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <IDsOfType>J}java.lang.String</IDsOfType>
+        </OverloadedParameter>
+        <Modifiers id="L}19">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+        <Static>false</Static>
+        <IDofType>J}void</IDofType>
+        <Type>void</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+      </Method>
+      <Method id="J}public java.lang.String org.example.RulesInput.getCustomerType()">
+        <Name>getCustomerType</Name>
+        <Alias>getCustomerType</Alias>
+        <Visible>false</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Modifiers id="L}21">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+        <Static>false</Static>
+        <IDofType>J}java.lang.String</IDofType>
+        <Type>String</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+      </Method>
+      <Method id="J}public int org.example.RulesInput.getSalary()">
+        <Name>getSalary</Name>
+        <Alias>getSalary</Alias>
+        <Visible>false</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Modifiers id="L}23">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+        <Static>false</Static>
+        <IDofType>J}int</IDofType>
+        <Type>int</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+      </Method>
+      <Method id="J}public java.lang.String org.example.RulesInput.getEmployeer()">
+        <Name>getEmployeer</Name>
+        <Alias>getEmployeer</Alias>
+        <Visible>false</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Modifiers id="L}25">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+        <Static>false</Static>
+        <IDofType>J}java.lang.String</IDofType>
+        <Type>String</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+      </Method>
+      <Constructor id="J}public org.example.RulesInput()">
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Visible>true</Visible>
+        <Modifiers id="L}13">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+      </Constructor>
+      <IDofSuperClass>J}java.lang.Object</IDofSuperClass>
+      <ValidationUpdateNumber>3</ValidationUpdateNumber>
+      <Source>Schemas/Rules.xsd</Source>
+      <IsArray>false</IsArray>
+      <IDofArrayComponentType>B}nil</IDofArrayComponentType>
+      <SupportXPath>false</SupportXPath>
+      <IsInterface>false</IsInterface>
+      <Modifiers id="L}29">
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Access>1</Access>
+        <isStatic>false</isStatic>
+        <isFinal>false</isFinal>
+        <isAbstract>false</isAbstract>
+      </Modifiers>
+      <EnumBucketSetID>B}nil</EnumBucketSetID>
+      <Timestamp>0</Timestamp>
+      <ENUM>false</ENUM>
+      <XmlName>//xs:element[@name=&apos;RulesInput&apos;]</XmlName>
+      <JAXB2.0>true</JAXB2.0>
+      <NodeName>RulesInput</NodeName>
+      <Namespace>http://www.example.org</Namespace>
+    </JaxbFactType>
+    <JaxbFactType id="J}org.example.ObjectFactory">
+      <Name>org.example.ObjectFactory</Name>
+      <Alias>org_example_ObjectFactory</Alias>
+      <Visible>false</Visible>
+      <CreationUpdateNumber>3</CreationUpdateNumber>
+      <Method id="J}public org.example.RulesInput org.example.ObjectFactory.createRulesInput()">
+        <Name>createRulesInput</Name>
+        <Alias>createRulesInput</Alias>
+        <Visible>false</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Modifiers id="L}35">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+        <Static>false</Static>
+        <IDofType>J}org.example.RulesInput</IDofType>
+        <Type>RulesInput</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+      </Method>
+      <Method id="J}public org.example.RulesOutput org.example.ObjectFactory.createRulesOutput()">
+        <Name>createRulesOutput</Name>
+        <Alias>createRulesOutput</Alias>
+        <Visible>false</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Modifiers id="L}37">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+        <Static>false</Static>
+        <IDofType>J}org.example.RulesOutput</IDofType>
+        <Type>RulesOutput</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+      </Method>
+      <Constructor id="J}public org.example.ObjectFactory()">
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Visible>false</Visible>
+        <Modifiers id="L}33">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+      </Constructor>
+      <IDofSuperClass>J}java.lang.Object</IDofSuperClass>
+      <ValidationUpdateNumber>3</ValidationUpdateNumber>
+      <Source>Schemas/Rules.xsd</Source>
+      <IsArray>false</IsArray>
+      <IDofArrayComponentType>B}nil</IDofArrayComponentType>
+      <SupportXPath>false</SupportXPath>
+      <IsInterface>false</IsInterface>
+      <Modifiers id="L}38">
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Access>1</Access>
+        <isStatic>false</isStatic>
+        <isFinal>false</isFinal>
+        <isAbstract>false</isAbstract>
+      </Modifiers>
+      <EnumBucketSetID>B}nil</EnumBucketSetID>
+      <Timestamp>0</Timestamp>
+      <ENUM>false</ENUM>
+      <JAXB2.0>true</JAXB2.0>
+    </JaxbFactType>
+    <JaxbFactType id="J}org.example.RulesOutput">
+      <Name>org.example.RulesOutput</Name>
+      <Alias>RulesOutput</Alias>
+      <Visible>true</Visible>
+      <CreationUpdateNumber>3</CreationUpdateNumber>
+      <Property id="J}org.example.RulesOutput.{RI}">
+        <Name>RI</Name>
+        <Alias>RI</Alias>
+        <Visible>true</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <IDofType>J}int</IDofType>
+        <ListContentID>B}nil</ListContentID>
+        <Type>int</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+        <Writable>true</Writable>
+        <Readable>true</Readable>
+        <Local>true</Local>
+        <Expression id="L}47">
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <PrimaryKey>false</PrimaryKey>
+      </Property>
+      <Method id="J}public int org.example.RulesOutput.getRI()">
+        <Name>getRI</Name>
+        <Alias>getRI</Alias>
+        <Visible>false</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Modifiers id="L}44">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+        <Static>false</Static>
+        <IDofType>J}int</IDofType>
+        <Type>int</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+      </Method>
+      <Method id="J}public void org.example.RulesOutput.setRI(int)">
+        <Name>setRI</Name>
+        <Alias>setRI</Alias>
+        <Visible>false</Visible>
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <OverloadedParameter id="G}7207f6fb:1960ab34c6f:-7bec">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <IDsOfType>J}int</IDsOfType>
+        </OverloadedParameter>
+        <Modifiers id="L}46">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+        <Static>false</Static>
+        <IDofType>J}void</IDofType>
+        <Type>void</Type>
+        <IDofBucketSet>B}nil</IDofBucketSet>
+      </Method>
+      <Constructor id="J}public org.example.RulesOutput()">
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Visible>true</Visible>
+        <Modifiers id="L}42">
+          <CreationUpdateNumber>3</CreationUpdateNumber>
+          <Access>1</Access>
+          <isStatic>false</isStatic>
+          <isFinal>false</isFinal>
+          <isAbstract>false</isAbstract>
+        </Modifiers>
+      </Constructor>
+      <IDofSuperClass>J}java.lang.Object</IDofSuperClass>
+      <ValidationUpdateNumber>3</ValidationUpdateNumber>
+      <Source>Schemas/Rules.xsd</Source>
+      <IsArray>false</IsArray>
+      <IDofArrayComponentType>B}nil</IDofArrayComponentType>
+      <SupportXPath>false</SupportXPath>
+      <IsInterface>false</IsInterface>
+      <Modifiers id="L}48">
+        <CreationUpdateNumber>3</CreationUpdateNumber>
+        <Access>1</Access>
+        <isStatic>false</isStatic>
+        <isFinal>false</isFinal>
+        <isAbstract>false</isAbstract>
+      </Modifiers>
+      <EnumBucketSetID>B}nil</EnumBucketSetID>
+      <Timestamp>0</Timestamp>
+      <ENUM>false</ENUM>
+      <XmlName>//xs:element[@name=&apos;RulesOutput&apos;]</XmlName>
+      <JAXB2.0>true</JAXB2.0>
+      <NodeName>RulesOutput</NodeName>
+      <Namespace>http://www.example.org</Namespace>
+    </JaxbFactType>
+    <SupportsXPathEnabled>false</SupportsXPathEnabled>
+    <DecisionFunction id="G}7207f6fb:1960ab34c6f:-7bea">
+      <Name>DecisionService_1</Name>
+      <Alias>DecisionService_1</Alias>
+      <Visible>true</Visible>
+      <CreationUpdateNumber>3</CreationUpdateNumber>
+      <WebService>true</WebService>
+      <CheckRuleFlow>true</CheckRuleFlow>
+      <Stateless>true</Stateless>
+      <DecisionFunctionInput id="G}7207f6fb:1960ab34c6f:-7be9">
+        <Name>RulesInput</Name>
+        <Alias>RulesInput</Alias>
+        <Visible>true</Visible>
+        <CreationUpdateNumber>5</CreationUpdateNumber>
+        <IDofType>J}org.example.RulesInput</IDofType>
+        <List>false</List>
+        <Tree>true</Tree>
+      </DecisionFunctionInput>
+      <DecisionFunctionRuleSet id="L}51">
+        <CreationUpdateNumber>4</CreationUpdateNumber>
+        <Form>rule set</Form>
+        <Ruleset>RIRules</Ruleset>
+        <refID>G}7207f6fb:1960ab34c6f:-7beb</refID>
+      </DecisionFunctionRuleSet>
+      <DecisionFunctionOutput id="G}7207f6fb:1960ab34c6f:-7be8">
+        <Name>RulesOutput</Name>
+        <Alias>RulesOutput</Alias>
+        <Visible>true</Visible>
+        <CreationUpdateNumber>6</CreationUpdateNumber>
+        <IDofType>J}org.example.RulesOutput</IDofType>
+        <List>false</List>
+        <Tree>false</Tree>
+      </DecisionFunctionOutput>
+      <ValidationUpdateNumber>32</ValidationUpdateNumber>
+      <RuleFiringLimit>10000</RuleFiringLimit>
+      <RuleFiringLimitError>true</RuleFiringLimitError>
+      <UniqueRulesets>false</UniqueRulesets>
+    </DecisionFunction>
+    <UpdateNumber>12</UpdateNumber>
+    <ValidationUpdateNumber>32</ValidationUpdateNumber>
+    <UpdateTime>0</UpdateTime>
+  </DataModel>
+  <RuleSet id="G}7207f6fb:1960ab34c6f:-7beb">
+    <Name>RIRules</Name>
+    <Alias>RIRules</Alias>
+    <ValidationUpdateNumber>73</ValidationUpdateNumber>
+    <Active>true</Active>
+    <CalendarForm>DateTime</CalendarForm>
+    <Rule id="G}7207f6fb:1960ab34c6f:-7be4">
+      <Name>PlatinumCustomer</Name>
+      <Alias>PlatinumCustomer</Alias>
+      <ValidationUpdateNumber>36</ValidationUpdateNumber>
+      <Priority>medium</Priority>
+      <Active>true</Active>
+      <CalendarForm>DateTime</CalendarForm>
+      <TreeMode>false</TreeMode>
+      <Visible>true</Visible>
+      <SimpleTest id="L}100">
+        <FactType>RulesInput</FactType>
+        <IDofFactType>J}org.example.RulesInput</IDofFactType>
+        <FactPath>RulesInput</FactPath>
+        <FactPathIDs>L}100</FactPathIDs>
+        <Form>FormIsA</Form>
+        <IDofOperator>B}==</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>false</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <SimpleTest id="L}93">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>FormNotNested</Form>
+        <Expression id="L}94">
+          <Value>RulesInput.customerType</Value>
+          <ResolvedValue>`L}100`.`J}org.example.RulesInput.{customerType}`</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Expression id="L}95">
+          <Value>&quot;Existing&quot;</Value>
+          <ResolvedValue>&quot;Existing&quot;</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <IDofOperator>B}==</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>true</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <SimpleTest id="L}105">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>FormNotNested</Form>
+        <Expression id="L}106">
+          <Value>RulesInput.employeer</Value>
+          <ResolvedValue>`L}100`.`J}org.example.RulesInput.{employeer}`</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Expression id="L}107">
+          <Value>&quot;MNC&quot;</Value>
+          <ResolvedValue>&quot;MNC&quot;</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <IDofOperator>B}==</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>true</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <SimpleTest id="L}114">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>FormNotNested</Form>
+        <Expression id="L}115">
+          <Value>RulesInput.salary</Value>
+          <ResolvedValue>`L}100`.`J}org.example.RulesInput.{salary}`</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Expression id="L}116">
+          <Value>80000</Value>
+          <ResolvedValue>80000</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <IDofOperator>B}&gt;</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>true</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <Pattern id="L}83">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>Fact Type</Form>
+        <Connective>&amp;&amp;</Connective>
+        <TestForm>Simple</TestForm>
+        <Expression id="L}84">
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Operator>(for each case where)</Operator>
+      </Pattern>
+      <ShowPatterns>false</ShowPatterns>
+      <Logical>false</Logical>
+      <Action id="L}125">
+        <Form>Assert New</Form>
+        <Target>RulesOutput</Target>
+        <ResolvedTarget>`J}public org.example.RulesOutput()`</ResolvedTarget>
+        <Expression id="L}128">
+          <Value>8</Value>
+          <ResolvedValue>8</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterAlias>RI</ParameterAlias>
+          <ParameterID>J}org.example.RulesOutput.{RI}</ParameterID>
+        </Expression>
+        <DSLId>B}nil</DSLId>
+      </Action>
+    </Rule>
+    <Rule id="G}7207f6fb:1960ab34c6f:-7be2">
+      <Name>GoldCustomer</Name>
+      <Alias>GoldCustomer</Alias>
+      <ValidationUpdateNumber>55</ValidationUpdateNumber>
+      <Priority>medium</Priority>
+      <Active>true</Active>
+      <CalendarForm>DateTime</CalendarForm>
+      <TreeMode>false</TreeMode>
+      <Visible>true</Visible>
+      <SimpleTest id="L}153">
+        <FactType>RulesInput</FactType>
+        <IDofFactType>J}org.example.RulesInput</IDofFactType>
+        <FactPath>RulesInput</FactPath>
+        <FactPathIDs>L}153</FactPathIDs>
+        <Form>FormIsA</Form>
+        <IDofOperator>B}==</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>false</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <SimpleTest id="L}148">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>FormNotNested</Form>
+        <Expression id="L}149">
+          <Value>RulesInput.customerType</Value>
+          <ResolvedValue>`L}153`.`J}org.example.RulesInput.{customerType}`</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Expression id="L}150">
+          <Value>&quot;Existing&quot;</Value>
+          <ResolvedValue>&quot;Existing&quot;</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <IDofOperator>B}==</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>true</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <SimpleTest id="L}158">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>FormNotNested</Form>
+        <Expression id="L}159">
+          <Value>RulesInput.employeer</Value>
+          <ResolvedValue>`L}153`.`J}org.example.RulesInput.{employeer}`</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Expression id="L}160">
+          <Value>&quot;MNC&quot;</Value>
+          <ResolvedValue>&quot;MNC&quot;</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <IDofOperator>B}==</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>true</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <SimpleTest id="L}167">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>FormNotNested</Form>
+        <Expression id="L}168">
+          <Value>RulesInput.salary</Value>
+          <ResolvedValue>`L}153`.`J}org.example.RulesInput.{salary}`</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Expression id="L}169">
+          <Value>40000</Value>
+          <ResolvedValue>40000</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <IDofOperator>B}&gt;</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>true</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <Pattern id="L}142">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>Fact Type</Form>
+        <Connective>&amp;&amp;</Connective>
+        <TestForm>Simple</TestForm>
+        <Expression id="L}143">
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Operator>(for each case where)</Operator>
+      </Pattern>
+      <ShowPatterns>false</ShowPatterns>
+      <Logical>false</Logical>
+      <Action id="L}178">
+        <Form>Assert New</Form>
+        <Target>RulesOutput</Target>
+        <ResolvedTarget>`J}public org.example.RulesOutput()`</ResolvedTarget>
+        <Expression id="L}181">
+          <Value>10</Value>
+          <ResolvedValue>10</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterAlias>RI</ParameterAlias>
+          <ParameterID>J}org.example.RulesOutput.{RI}</ParameterID>
+        </Expression>
+        <DSLId>B}nil</DSLId>
+      </Action>
+    </Rule>
+    <Rule id="G}7207f6fb:1960ab34c6f:-7be1">
+      <Name>SilverCustomer</Name>
+      <Alias>SilverCustomer</Alias>
+      <ValidationUpdateNumber>73</ValidationUpdateNumber>
+      <Priority>medium</Priority>
+      <Active>true</Active>
+      <CalendarForm>DateTime</CalendarForm>
+      <TreeMode>false</TreeMode>
+      <Visible>true</Visible>
+      <SimpleTest id="L}205">
+        <FactType>RulesInput</FactType>
+        <IDofFactType>J}org.example.RulesInput</IDofFactType>
+        <FactPath>RulesInput</FactPath>
+        <FactPathIDs>L}205</FactPathIDs>
+        <Form>FormIsA</Form>
+        <IDofOperator>B}==</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>false</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <SimpleTest id="L}200">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>FormNotNested</Form>
+        <Expression id="L}201">
+          <Value>RulesInput.customerType</Value>
+          <ResolvedValue>`L}205`.`J}org.example.RulesInput.{customerType}`</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Expression id="L}202">
+          <Value>&quot;NEW&quot;</Value>
+          <ResolvedValue>&quot;NEW&quot;</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <IDofOperator>B}==</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>true</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <SimpleTest id="L}210">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>FormNotNested</Form>
+        <Expression id="L}211">
+          <Value>RulesInput.employeer</Value>
+          <ResolvedValue>`L}205`.`J}org.example.RulesInput.{employeer}`</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Expression id="L}212">
+          <Value>&quot;NONMNC&quot;</Value>
+          <ResolvedValue>&quot;NONMNC&quot;</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <IDofOperator>B}==</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>true</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <SimpleTest id="L}219">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>FormNotNested</Form>
+        <Expression id="L}220">
+          <Value>RulesInput.salary</Value>
+          <ResolvedValue>`L}205`.`J}org.example.RulesInput.{salary}`</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Expression id="L}221">
+          <Value>40000</Value>
+          <ResolvedValue>40000</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <IDofOperator>B}&lt;</IDofOperator>
+        <Connective>&amp;&amp;</Connective>
+        <Visible>true</Visible>
+        <DSLId>B}nil</DSLId>
+      </SimpleTest>
+      <Pattern id="L}194">
+        <IDofFactType>B}nil</IDofFactType>
+        <Form>Fact Type</Form>
+        <Connective>&amp;&amp;</Connective>
+        <TestForm>Simple</TestForm>
+        <Expression id="L}195">
+          <IsConstant>false</IsConstant>
+          <ParameterID>B}nil</ParameterID>
+        </Expression>
+        <Operator>(for each case where)</Operator>
+      </Pattern>
+      <ShowPatterns>false</ShowPatterns>
+      <Logical>false</Logical>
+      <Action id="L}230">
+        <Form>Assert New</Form>
+        <Target>RulesOutput</Target>
+        <ResolvedTarget>`J}public org.example.RulesOutput()`</ResolvedTarget>
+        <Expression id="L}233">
+          <Value>12</Value>
+          <ResolvedValue>12</ResolvedValue>
+          <IsConstant>false</IsConstant>
+          <ParameterAlias>RI</ParameterAlias>
+          <ParameterID>J}org.example.RulesOutput.{RI}</ParameterID>
+        </Expression>
+        <DSLId>B}nil</DSLId>
+      </Action>
+    </Rule>
+    <VisibilityFilterEnabled>false</VisibilityFilterEnabled>
+    <CreationUpdateNumber>3</CreationUpdateNumber>
+  </RuleSet>
+  <ValidationUpdateNumber>73</ValidationUpdateNumber>
+  <UpdateNumber>73</UpdateNumber>
+  <ResourceBundle>LoanProcessingRulesTranslations</ResourceBundle>
+  <TestModel id="L}3">
+    <ValidationUpdateNumber>1</ValidationUpdateNumber>
+    <UpdateNumber>1</UpdateNumber>
+    <Validation>true</Validation>
+    <AutoSync>true</AutoSync>
+  </TestModel>
+  <Preferences id="G}7207f6fb:1960ab34c6f:-7ffd">
+    <RulesExecutionAlgorithm>RETE</RulesExecutionAlgorithm>
+    <DisallowErrorSuppression>false</DisallowErrorSuppression>
+    <PhraseSuggestions>All</PhraseSuggestions>
+    <RestrictAutoSuggestions>true</RestrictAutoSuggestions>
+    <IncludeChainedExpressions>true</IncludeChainedExpressions>
+  </Preferences>
+  <decisionModel id="L}4">
+    <CreationUpdateNumber>2</CreationUpdateNumber>
+  </decisionModel>
+</RuleDictionary>

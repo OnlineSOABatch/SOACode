@@ -1,0 +1,32 @@
+<wsdl:definitions
+     name="SelectCustomerDetail"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/OnlineBatch25/SelectDataBase/SelectCustomerDetail"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/OnlineBatch25/SelectDataBase/SelectCustomerDetail"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectCustomerDetail"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="SelectCustomerDetail_plt" >
+    <plt:role name="SelectCustomerDetail_role" >
+      <plt:portType name="tns:SelectCustomerDetail_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectCustomerDetail" schemaLocation="../Schemas/SelectCustomerDetail_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectCustomerDetailSelect_inputParameters">
+        <wsdl:part name="SelectCustomerDetailSelect_inputParameters" element="top:SelectCustomerDetailSelect_IdInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="CustomerCollection_msg">
+        <wsdl:part name="CustomerCollection" element="top:CustomerCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectCustomerDetail_ptt">
+        <wsdl:operation name="SelectCustomerDetailSelect">
+            <wsdl:input message="tns:SelectCustomerDetailSelect_inputParameters"/>
+            <wsdl:output message="tns:CustomerCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

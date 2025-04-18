@@ -1,0 +1,112 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Sun Mar 30 08:15:16 IST 2025
+  Author:  MY PC
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="InsertintoDB"
+               targetNamespace="http://xmlns.oracle.com/OnlineBatch25/DBAdapter/InsertintoDB"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/OnlineBatch25/DBAdapter/InsertintoDB"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/OnlineBatch25/DBAdapter/InsertIntoCustmer"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertIntoCustmer"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:ess="http://xmlns.oracle.com/scheduler" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/OnlineBatch25/DBAdapter/InsertintoDB" location="../WSDLs/InsertintoDB.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="insertintodb" partnerLinkType="client:InsertintoDB" myRole="InsertintoDBProvider"/>
+    <partnerLink name="InsertIntoCustmer" partnerLinkType="ns1:InsertIntoCustmer_plt"
+                 partnerRole="InsertIntoCustmer_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:InsertintoDBRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:InsertintoDBResponseMessage"/>
+    <variable name="invokeInsertIntoCustmer_InputVariable" messageType="ns1:CustomerCollection_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in InsertintoDB.wsdl) -->
+    <receive name="receiveInput" partnerLink="insertintodb" portType="client:InsertintoDB" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="AssignInput">
+      <copy>
+        <from>$inputVariable.payload/client:Id</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeInsertIntoCustmer_InputVariable.CustomerCollection/ns2:Customer/ns2:id</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/client:Status</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeInsertIntoCustmer_InputVariable.CustomerCollection/ns2:Customer/ns2:status</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/client:Name</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeInsertIntoCustmer_InputVariable.CustomerCollection/ns2:Customer/ns2:name</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/client:City</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeInsertIntoCustmer_InputVariable.CustomerCollection/ns2:Customer/ns2:city</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/client:ContactNo</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$invokeInsertIntoCustmer_InputVariable.CustomerCollection/ns2:Customer/ns2:contactnumber</to>
+      </copy>
+    </assign>
+    <invoke name="InvokeInsertIntoCustmer" partnerLink="InsertIntoCustmer"
+            portType="ns1:InsertIntoCustmer_ptt" operation="insert"
+            inputVariable="invokeInsertIntoCustmer_InputVariable" bpelx:invokeAsDetail="no"/>
+    <assign name="Assignresponse">
+      <copy>
+        <from>'Data has inserted successfully'</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/client:response</to>
+      </copy>
+    </assign>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="insertintodb" portType="client:InsertintoDB" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

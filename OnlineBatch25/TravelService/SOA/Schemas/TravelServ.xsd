@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org"
+            targetNamespace="http://www.example.org" elementFormDefault="qualified">
+  <xsd:element name="BookTicket">
+    <xsd:annotation>
+      <xsd:documentation>A sample element</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="From" type="xsd:string"/>
+        <xsd:element name="To" type="xsd:string"/>
+        <xsd:element name="NoOfPass" type="xsd:int"/>
+        <xsd:element name="Doj" type="xsd:date"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="CancelTicket">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="PnrNo" type="xsd:int"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="ServiceResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="PnrNo" type="xsd:int"/>
+        <xsd:element name="Status" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

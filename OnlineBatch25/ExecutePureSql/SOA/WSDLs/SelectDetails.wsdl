@@ -1,0 +1,32 @@
+<wsdl:definitions
+     name="SelectDetails"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/OnlineBatch25/ExecutePureSql/SelectDetails"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/OnlineBatch25/ExecutePureSql/SelectDetails"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/SelectDetails"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="SelectDetails_plt" >
+    <plt:role name="SelectDetails_role" >
+      <plt:portType name="tns:SelectDetails_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectDetails" schemaLocation="../Schemas/SelectDetails.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectDetailsInput_msg">
+        <wsdl:part name="SelectDetailsInput_msg" element="db:SelectDetailsInput"/>
+    </wsdl:message>
+    <wsdl:message name="SelectDetailsOutputCollection_msg">
+        <wsdl:part name="SelectDetailsOutputCollection" element="db:SelectDetailsOutputCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectDetails_ptt">
+        <wsdl:operation name="SelectDetails">
+            <wsdl:input message="tns:SelectDetailsInput_msg"/>
+            <wsdl:output message="tns:SelectDetailsOutputCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

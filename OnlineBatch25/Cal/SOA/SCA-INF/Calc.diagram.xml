@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dgm:gDiagram xmlns:dgm="http://xmlns.oracle.com/sca/soadgm">
+    <dgm:gService name="calc_client_ep">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="105" width="137" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="11" Y="98" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:outputPort name="calc_client_ep" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/OnlineBatch25/Cal/Calc#wsdl.interface(Calc)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="20" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>process</dgm:item>
+        </dgm:operations>
+    </dgm:gService>
+    <dgm:gReference name="Add">
+        <dgm:body borderWidth="2" arcRad="20" X="628" Y="114" width="137" height="54">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="618" Y="107" width="157" height="68">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="Add" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/OnlineBatch25/Add/Add#wsdl.interface(Add)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="14" Y="4" width="20" height="20"/>
+        <dgm:operations/>
+    </dgm:gReference>
+    <dgm:gReference name="Sub">
+        <dgm:body borderWidth="2" arcRad="20" X="628" Y="26" width="137" height="54">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="618" Y="19" width="157" height="68">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="Sub" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/OnlineBatch25/Sub/Sub#wsdl.interface(Sub)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="14" Y="4" width="20" height="20"/>
+        <dgm:operations/>
+    </dgm:gReference>
+    <dgm:gReference name="CallErrorHandlerService">
+        <dgm:body borderWidth="2" arcRad="20" X="628" Y="202" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="618" Y="195" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="CallErrorHandlerService" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://www.example.org/system/clientname/wsdl/ErrorHandlingMessage/1.0#wsdl.interface(ErrorHandlingMessage_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>ErrorHandlingMessage</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gComponent name="Calc">
+        <dgm:body borderWidth="2" arcRad="20" X="328" Y="90" width="130" height="111">
+            <dgm:borderColor r="69" g="113" b="140"/>
+            <dgm:lightBgColor r="166" g="208" b="230"/>
+            <dgm:darkBgColor r="99" g="162" b="201"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="318" Y="83" width="150" height="127">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="calc_client" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/OnlineBatch25/Cal/Calc#wsdl.interface(Calc)"/>
+        <dgm:outputPort name="Sub" X="120" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/OnlineBatch25/Sub/Sub#wsdl.interface(Sub)"/>
+        <dgm:outputPort name="Add" X="120" Y="40" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/OnlineBatch25/Add/Add#wsdl.interface(Add)"/>
+        <dgm:outputPort name="CallErrorHandlerService" X="120" Y="65" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://www.example.org/system/clientname/wsdl/ErrorHandlingMessage/1.0#wsdl.interface(ErrorHandlingMessage_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
+    </dgm:gComponent>
+    <dgm:gWireLink source="calc_client_ep" target="Calc/calc_client" width="2">
+        <dgm:gSegment X1="168" Y1="115" X2="318" Y2="115"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="Calc/Sub" target="Sub" width="2">
+        <dgm:gSegment X1="468" Y1="115" X2="492" Y2="115"/>
+        <dgm:gSegment X1="492" Y1="115" X2="492" Y2="36"/>
+        <dgm:gSegment X1="492" Y1="36" X2="618" Y2="36"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="Calc/Add" target="Add" width="2">
+        <dgm:gSegment X1="468" Y1="140" X2="507" Y2="140"/>
+        <dgm:gSegment X1="507" Y1="140" X2="507" Y2="124"/>
+        <dgm:gSegment X1="507" Y1="124" X2="618" Y2="124"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="Calc/CallErrorHandlerService" target="CallErrorHandlerService" width="2">
+        <dgm:gSegment X1="468" Y1="165" X2="492" Y2="165"/>
+        <dgm:gSegment X1="492" Y1="165" X2="492" Y2="212"/>
+        <dgm:gSegment X1="492" Y1="212" X2="618" Y2="212"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+</dgm:gDiagram>

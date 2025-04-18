@@ -1,0 +1,52 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer
+
+  Created: Mon Mar 31 09:40:39 IST 2025
+  Author:  MY PC
+  Type: BPEL 2.0 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="DBtoFTPBPS"
+               targetNamespace="http://xmlns.oracle.com/OnlineBatch25/DBtoFTP/DBtoFTPBPS"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/OnlineBatch25/DBtoFTP/DBtoFTPBPS"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/OnlineBatch25/DBtoFTP/Pollrecords"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/ftp/OnlineBatch25/DBtoFTP/WriteFiles">
+
+  <!--
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC
+     Set of activities coordinating the flow of messages across the
+     services integrated within this business process
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <partnerLink name="Pollrecords" partnerLinkType="ns1:Pollrecords_plt" myRole="Pollrecords_role"/>
+    <partnerLink name="WriteFiles" partnerLinkType="ns2:Put_plt" partnerRole="Put_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="receivePollrecords_InputVariable" messageType="ns1:CustomerCollection_msg"/>
+    <variable name="invokeWriteFiles_InputVariable" messageType="ns2:Put_msg"/>
+  </variables>
+  <sequence name="main">
+    <receive name="ReceivePollrecords" partnerLink="Pollrecords" portType="ns1:Pollrecords_ptt" operation="receive"
+             variable="receivePollrecords_InputVariable" createInstance="yes"/>
+    <assign name="TransformData">
+      <bpelx:annotation>
+        <bpelx:pattern patternName="bpelx:transformation"></bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from>ora:doXSLTransformForDoc("../Transformations/TransformData.xsl", $receivePollrecords_InputVariable.CustomerCollection)</from>
+        <to variable="invokeWriteFiles_InputVariable" part="body"/>
+      </copy>
+    </assign>
+    <invoke name="InvokeWriteFiles" partnerLink="WriteFiles" portType="ns2:Put_ptt"
+            operation="Put" inputVariable="invokeWriteFiles_InputVariable" bpelx:invokeAsDetail="no"/>
+  </sequence>
+</process>

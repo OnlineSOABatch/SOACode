@@ -1,0 +1,23 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="CUSTOMER:db_table_type">TABLE</entry>
+   <entry key="CUSTOMER.NAME:db_column_type">VARCHAR2</entry>
+   <entry key="CUSTOMER.NAME:db_column_not_null">false</entry>
+   <entry key="CUSTOMER.CONTACTNUMBER:db_column_type">VARCHAR2</entry>
+   <entry key="CUSTOMER.ID:db_column_type">VARCHAR2</entry>
+   <entry key="CUSTOMER.CITY:db_column_size">20</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="CUSTOMER.NAME:db_column_size">50</entry>
+   <entry key="CUSTOMER.CONTACTNUMBER:db_column_not_null">false</entry>
+   <entry key="CUSTOMER.CONTACTNUMBER:db_column_size">25</entry>
+   <entry key="CUSTOMER.ID:db_column_size">30</entry>
+   <entry key="CUSTOMER:db_column_3">CONTACTNUMBER</entry>
+   <entry key="CUSTOMER:db_column_2">CITY</entry>
+   <entry key="CUSTOMER:db_column_1">NAME</entry>
+   <entry key="CUSTOMER:db_column_0">ID</entry>
+   <entry key="root_descriptor_alias">CUSTOMER</entry>
+   <entry key="CUSTOMER.ID:db_column_not_null">true</entry>
+   <entry key="CUSTOMER.CITY:db_column_not_null">false</entry>
+   <entry key="CUSTOMER.CITY:db_column_type">VARCHAR2</entry>
+</properties>
